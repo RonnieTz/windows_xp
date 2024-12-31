@@ -24,6 +24,7 @@ const Taskbar = () => {
   return (
     <div {...stylex.props(taskbar)}>
       <Image
+        priority
         {...stylex.props(background)}
         src={taskbarImage}
         alt="Taskbar image"

@@ -2,6 +2,7 @@
 
 import * as stylex from '@stylexjs/stylex';
 import { useDateTime } from '@/app/hooks/useDateTime';
+import dynamic from 'next/dynamic';
 
 const { style } = stylex.create({
   style: {
@@ -21,4 +22,5 @@ const Time = () => {
   const { time } = useDateTime();
   return <div {...stylex.props(style)}>{time}</div>;
 };
+
 export default Time;

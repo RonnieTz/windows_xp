@@ -10,7 +10,6 @@ import {
 } from '@/app/redux/slices/systemSlice';
 import { useDelay } from '@/app/hooks/useDelay';
 import { useClickOutside } from '@/app/hooks/useClickOutside';
-import { useRef } from 'react';
 import AllProgramsMenu from './AllProgramsMenu';
 
 const styles = stylex.create({
@@ -49,7 +48,6 @@ const styles = stylex.create({
 });
 
 const AllProgramsButton = () => {
-  const ref = useRef<HTMLDivElement>(null);
   const { useReduxDispatch, useReduxSelector } = useRedux();
   const isOpen = useReduxSelector(
     (state) => state.system.allProgramsMenuIsOpen
@@ -62,7 +60,7 @@ const AllProgramsButton = () => {
     dispatch(hideAllProgramsMenu());
   };
   const { onMouseEnter, onMouseLeave } = useDelay(500, handleOpen);
-  useClickOutside(ref, handleClose);
+  const ref = useClickOutside(handleClose);
   return (
     <div
       ref={ref}

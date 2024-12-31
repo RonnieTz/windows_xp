@@ -7,11 +7,10 @@ import LeftMenu from './LeftMenu';
 import RightMenu from './RightMenu';
 import { useRedux } from '@/app/hooks/useRedux';
 import {
-  toggleStartMenu,
   hideAllProgramsMenu,
+  closeStartMenu,
 } from '@/app/redux/slices/systemSlice';
 import { useClickOutside } from '@/app/hooks/useClickOutside';
-import { useRef } from 'react';
 
 const styles = stylex.create({
   menu: {
@@ -20,7 +19,7 @@ const styles = stylex.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
-    zIndex: 1,
+    zIndex: 100000,
   },
   image: {
     height: '100%',
@@ -33,17 +32,17 @@ const styles = stylex.create({
 });
 
 const Menu = () => {
-  const ref = useRef<HTMLDivElement>(null);
   const { useReduxDispatch } = useRedux();
   const dispatch = useReduxDispatch();
   const handleClose = () => {
-    dispatch(toggleStartMenu());
+    dispatch(closeStartMenu());
     dispatch(hideAllProgramsMenu());
   };
-  useClickOutside(ref, handleClose);
+  const ref = useClickOutside(handleClose);
   return (
     <div ref={ref} {...stylex.props(styles.menu)}>
       <Image
+        priority
         {...stylex.props(styles.image)}
         src={backgroundImage}
         alt="Menu background image"

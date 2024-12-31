@@ -17,6 +17,7 @@ html {
   font-family: Tahoma, 'sans-serif';
   box-sizing: border-box;
   cursor: default;
+  user-select: none;
 }
 
 /* Sections

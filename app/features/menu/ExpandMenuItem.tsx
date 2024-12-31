@@ -92,7 +92,7 @@ const ExpandMenuItem = ({
         selectedItem === title && !itemHovered && styles.selected
       )}
     >
-      <Image {...stylex.props(styles.icon)} src={icon} alt={title} />
+      <Image priority {...stylex.props(styles.icon)} src={icon} alt={title} />
       <span {...stylex.props(styles.title)}>{title}</span>
       {hasExpand && (
         <Arrow

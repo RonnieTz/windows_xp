@@ -15,6 +15,7 @@ type MenuItemIconProps = { icon: StaticImageData };
 const MenuItemIcon = ({ icon }: MenuItemIconProps) => {
   return (
     <Image
+      priority
       {...stylex.props(styles.menuItemIcon)}
       src={icon}
       alt="Menu item icon"

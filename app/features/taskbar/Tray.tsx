@@ -3,10 +3,16 @@
 import * as stylex from '@stylexjs/stylex';
 import trayImage from '@/public/taskbar/timebox.jpg';
 import Image from 'next/image';
-import Time from './Time';
 import Tooltip from './Tooltip';
-import Date from './Date';
 import { useHover } from '@/app/hooks/useHover';
+import dynamic from 'next/dynamic';
+
+const Time = dynamic(() => import('@/app/features/taskbar/Time'), {
+  ssr: false,
+});
+const Date = dynamic(() => import('@/app/features/taskbar/Date'), {
+  ssr: false,
+});
 
 const { tray, background } = stylex.create({
   tray: {

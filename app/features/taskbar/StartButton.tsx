@@ -4,6 +4,7 @@ import * as stylex from '@stylexjs/stylex';
 import { useHover } from '@/app/hooks/useHover';
 import Tooltip from './Tooltip';
 import { useRedux } from '@/app/hooks/useRedux';
+import { openStartMenu } from '@/app/redux/slices/systemSlice';
 
 const { startButton, open } = stylex.create({
   startButton: {
@@ -27,12 +28,20 @@ type StartButtonProps = {
 
 const StartButton = ({ children }: StartButtonProps) => {
   const { bind, isHovered } = useHover();
-  const { useReduxSelector } = useRedux();
+  const { useReduxSelector, useReduxDispatch } = useRedux();
+  const dispatch = useReduxDispatch();
   const startMenuIsOpen = useReduxSelector(
     (state) => state.system.startMenuIsOpen
   );
   return (
-    <div {...bind} {...stylex.props(startButton, startMenuIsOpen && open)}>
+    <div
+      onClickCapture={(e) => {
+        e.stopPropagation();
+        dispatch(openStartMenu());
+      }}
+      {...bind}
+      {...stylex.props(startButton, startMenuIsOpen && open)}
+    >
       {children}
       {isHovered && !startMenuIsOpen && (
         <Tooltip position={{ left: 20 }}>

@@ -12,6 +12,12 @@ const systemSlice = createSlice({
     toggleStartMenu: (state) => {
       state.startMenuIsOpen = !state.startMenuIsOpen;
     },
+    closeStartMenu: (state) => {
+      state.startMenuIsOpen = false;
+    },
+    openStartMenu: (state) => {
+      state.startMenuIsOpen = true;
+    },
     showAllProgramsMenu: (state) => {
       state.allProgramsMenuIsOpen = true;
     },
@@ -22,5 +28,10 @@ const systemSlice = createSlice({
 });
 
 export default systemSlice.reducer;
-export const { toggleStartMenu, hideAllProgramsMenu, showAllProgramsMenu } =
-  systemSlice.actions;
+export const {
+  toggleStartMenu,
+  hideAllProgramsMenu,
+  showAllProgramsMenu,
+  closeStartMenu,
+  openStartMenu,
+} = systemSlice.actions;
