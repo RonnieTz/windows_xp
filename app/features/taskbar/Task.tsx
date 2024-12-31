@@ -37,7 +37,7 @@ const styles = stylex.create({
 type TaskProps = { id: string };
 
 const Task = ({ id }: TaskProps) => {
-  const { window, focus, blur, restoreMinimized, minimize, restore } =
+  const { window, focus, blur, restoreMinimized, minimize } =
     useManageWindow(id);
   const handleClick = () => {
     if (window.minimized) {
