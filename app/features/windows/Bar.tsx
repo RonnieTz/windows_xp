@@ -2,7 +2,6 @@ import * as stylex from '@stylexjs/stylex';
 import ButtonGroup from './ButtonGroup';
 import Title from './Title';
 import { useManageWindow } from '@/app/hooks/useManageWindow';
-import { on } from 'events';
 
 const styles = stylex.create({
   bar: {

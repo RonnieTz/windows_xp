@@ -3,7 +3,6 @@ import backgroundImage from '../../../public/desktop/wallpaper.webp';
 import Image from 'next/image';
 import Menu from '../menu/Menu';
 import ClientWrapper from '../menu/ClientWrapper';
-import Window from '../windows/Window';
 import WindowsLayer from './WindowsLayer';
 
 const { background, desktop } = stylex.create({
@@ -32,7 +31,6 @@ const Desktop = () => {
       <ClientWrapper>
         <Menu />
       </ClientWrapper>
-      {/* <Window id="0" /> */}
       <WindowsLayer />
     </div>
   );

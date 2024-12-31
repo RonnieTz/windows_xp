@@ -1,7 +1,6 @@
 import * as stylex from '@stylexjs/stylex';
 import Image from 'next/image';
 import { useManageWindow } from '@/app/hooks/useManageWindow';
-import { title } from 'process';
 
 const styles = stylex.create({
   task: {

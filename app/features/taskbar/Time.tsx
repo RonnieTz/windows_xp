@@ -2,7 +2,6 @@
 
 import * as stylex from '@stylexjs/stylex';
 import { useDateTime } from '@/app/hooks/useDateTime';
-import dynamic from 'next/dynamic';
 
 const { style } = stylex.create({
   style: {

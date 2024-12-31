@@ -1,6 +1,5 @@
 import * as stylex from '@stylexjs/stylex';
 import Image from 'next/image';
-import titleIcon from '@/public/start/My Documents.webp';
 import { useManageWindow } from '@/app/hooks/useManageWindow';
 
 const styles = stylex.create({

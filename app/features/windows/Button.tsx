@@ -37,7 +37,11 @@ const Button = ({ type, id }: ButtonProps) => {
       close();
     }
     if (type === 'maximize') {
-      window.fullscreen ? restore() : maximize();
+      if (window.fullscreen) {
+        restore();
+      } else {
+        maximize();
+      }
     }
     if (type === 'minimize') {
       minimize();
@@ -48,7 +52,6 @@ const Button = ({ type, id }: ButtonProps) => {
     <div
       onDragStart={(e) => {
         e.stopPropagation();
-        e.dataTransfer.setDragImage(new Image(), 0, 0);
       }}
       onDrag={(e) => e.stopPropagation()}
       onDragEnd={(e) => e.stopPropagation()}
