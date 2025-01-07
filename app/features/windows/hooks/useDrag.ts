@@ -23,7 +23,7 @@ export const useDrag = (id: string) => {
       setWindowPosition({ left, top: Math.max(top, 0) });
     };
 
-    const mouseup = (e: MouseEvent) => {
+    const mouseup = () => {
       if (!isDragging.current) return;
       isDragging.current = false;
       dispatch(
@@ -41,7 +41,7 @@ export const useDrag = (id: string) => {
       removeEventListener('mousemove', handleDrag);
       removeEventListener('mouseup', mouseup);
     };
-  }, [windowPosition]);
+  }, [windowPosition, dispatch, id]);
 
   const onDragStart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();

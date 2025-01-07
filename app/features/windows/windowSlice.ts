@@ -17,7 +17,7 @@ const initialState: { windows: Window[]; tasks: Task[] } = {
       fullscreen: false,
       zIndex: 1,
       minimized: false,
-      open: false,
+      open: true,
       icon,
     },
   ],

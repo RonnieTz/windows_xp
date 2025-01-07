@@ -3,7 +3,6 @@ import arrowDown from '@/public/folder/arrow-double.svg';
 import arrowDownHighlighted from '@/public/folder/arrow-double-highlighted.svg';
 import { useManageAccordion } from '../hooks/useManageAccordion';
 import Tooltip from '../../desktop/Tooltip';
-import AccordionItem from './AccordionItem';
 
 import Image from 'next/image';
 

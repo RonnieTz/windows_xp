@@ -1,8 +1,6 @@
 'use client';
 
 import * as stylex from '@stylexjs/stylex';
-import DesktopLink from '../links/desktopLink/DesktopLink';
-import { logos } from '@/public/logos';
 
 const { desktop } = stylex.create({
   desktop: {
@@ -20,7 +18,6 @@ const { desktop } = stylex.create({
 });
 
 const LinksLayer = () => {
-  const { folderClosed } = logos;
   return <div {...stylex.props(desktop)}></div>;
 };
 export default LinksLayer;

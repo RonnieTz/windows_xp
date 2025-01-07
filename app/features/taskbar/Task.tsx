@@ -40,14 +40,14 @@ const Task = ({ id }: TaskProps) => {
   const { window, focus, blur, restoreMinimized, minimize } =
     useManageWindow(id);
   const handleClick = () => {
-    if (window.minimized) {
+    if (window?.minimized) {
       restoreMinimized();
       focus();
     }
-    if (!window.minimized && !window.focus) {
+    if (!window?.minimized && !window?.focus) {
       focus();
     }
-    if (!window.minimized && window.focus) {
+    if (!window?.minimized && window?.focus) {
       blur();
       minimize();
     }
@@ -55,14 +55,16 @@ const Task = ({ id }: TaskProps) => {
   return (
     <div
       onClick={handleClick}
-      {...stylex.props(styles.task, window.focus && styles.focused)}
+      {...stylex.props(styles.task, window?.focus && styles.focused)}
     >
-      <Image
-        {...stylex.props(styles.icon)}
-        src={window.icon}
-        alt="Taskbar image"
-      />
-      <div {...stylex.props(styles.title)}>{window.title}</div>
+      {window && (
+        <Image
+          {...stylex.props(styles.icon)}
+          src={window?.icon}
+          alt="Taskbar image"
+        />
+      )}
+      <div {...stylex.props(styles.title)}>{window?.title}</div>
     </div>
   );
 };

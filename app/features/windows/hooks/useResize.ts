@@ -92,7 +92,7 @@ export const useResize = (
       removeEventListener('mousemove', handleResize);
       removeEventListener('mouseup', handleMouseUp);
     };
-  }, [windowSize, window]);
+  }, [windowSize, window, dispatch, id, windowPosition, setWindowPosition]);
 
   const resize = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,

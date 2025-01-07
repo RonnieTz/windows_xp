@@ -14,9 +14,7 @@ const styles = stylex.create({
   },
 });
 
-type WindowProps = {};
-
-const Explorer = ({}: WindowProps) => {
+const Explorer = () => {
   const { closeDropdown, props } = useManageToolbar();
   const { window } = useManageWindow('1');
 
