@@ -1,46 +1,34 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import icon from '@/public/start/Control Panel.webp';
-import { Window, Task } from '../types';
+import { Window, Task } from './types';
 
 const initialState: { windows: Window[]; tasks: Task[] } = {
   windows: [
     {
-      id: '0',
-      title: 'Window 1',
-      width: 300,
-      height: 300,
-      top: 150,
-      left: 150,
-      focus: true,
-      fullscreen: false,
-      open: true,
-      zIndex: 1,
-      minimized: false,
-      icon,
-    },
-    {
       id: '1',
       title: 'Window 2',
-      width: 300,
-      height: 300,
-      top: 250,
+      width: 550,
+      minWidth: 500,
+      height: 550,
+      minHeight: 400,
+      top: 150,
       left: 250,
       focus: true,
       fullscreen: false,
-      open: true,
       zIndex: 1,
       minimized: false,
+      open: false,
       icon,
     },
   ],
-  tasks: [{ id: '0' }, { id: '1' }],
+  tasks: [{ id: '1' }],
 };
 
 const windowSlice = createSlice({
   name: 'window',
   initialState,
   reducers: {
-    setWindowSize: (
+    setSize: (
       state,
       action: PayloadAction<{ id: string; width: number; height: number }>
     ) => {
@@ -114,7 +102,7 @@ const windowSlice = createSlice({
 });
 
 export const {
-  setWindowSize,
+  setSize,
   setFocus,
   setFullscreen,
   closeWindow,

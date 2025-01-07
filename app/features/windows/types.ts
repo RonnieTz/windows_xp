@@ -13,6 +13,8 @@ export type Window = {
   top: number;
   left: number;
   icon: StaticImageData;
+  minWidth: number;
+  minHeight: number;
 };
 
 export type Task = {

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Menu from '../menu/Menu';
 import ClientWrapper from '../menu/ClientWrapper';
 import WindowsLayer from './WindowsLayer';
+import LinksLayer from './LinksLayer';
 
 const { background, desktop } = stylex.create({
   desktop: {
@@ -16,6 +17,7 @@ const { background, desktop } = stylex.create({
     height: '100%',
     width: '100%',
     position: 'absolute',
+    zIndex: 1,
   },
 });
 
@@ -32,6 +34,7 @@ const Desktop = () => {
         <Menu />
       </ClientWrapper>
       <WindowsLayer />
+      <LinksLayer />
     </div>
   );
 };

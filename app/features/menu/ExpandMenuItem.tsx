@@ -78,7 +78,6 @@ const ExpandMenuItem = ({
     <div
       onMouseEnter={() => {
         onMouseEnter?.(title);
-
         bind.onMouseEnter();
       }}
       onMouseMove={onMouseMove}

@@ -4,11 +4,11 @@ import maximizeIcon from '@/public/window/Maximize.webp';
 import mimimizeIcon from '@/public/window/Minimize.webp';
 import restoreIcon from '@/public/window/Restore.webp';
 import NextImage from 'next/image';
-import { useManageWindow } from '@/app/hooks/useManageWindow';
+import { useManageWindow } from '../hooks/useManageWindow';
 
 const styles = stylex.create({
   button: {
-    height: 30,
+    height: '100%',
     aspectRatio: '1 / 1',
     display: 'flex',
     gap: 2,
@@ -32,12 +32,13 @@ type ButtonProps = {
 const Button = ({ type, id }: ButtonProps) => {
   const { window, maximize, restore, close, minimize, blur } =
     useManageWindow(id);
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
     if (type === 'exit') {
       close();
     }
     if (type === 'maximize') {
-      if (window.fullscreen) {
+      if (window?.fullscreen) {
         restore();
       } else {
         maximize();
@@ -53,6 +54,7 @@ const Button = ({ type, id }: ButtonProps) => {
       onDragStart={(e) => {
         e.stopPropagation();
       }}
+      onMouseDown={(e) => e.stopPropagation()}
       onDrag={(e) => e.stopPropagation()}
       onDragEnd={(e) => e.stopPropagation()}
       onClick={handleClick}
@@ -64,7 +66,7 @@ const Button = ({ type, id }: ButtonProps) => {
           type === 'exit'
             ? exitIcon
             : type === 'maximize'
-            ? window.fullscreen
+            ? window?.fullscreen
               ? restoreIcon
               : maximizeIcon
             : type === 'minimize'

@@ -5,12 +5,12 @@ const styles = stylex.create({
     width: '100% - 5px',
     flex: 1,
     backgroundColor: 'rgb(255, 255, 255)',
-    borderWidth: '0 2px 2px 2px',
-    borderColor: '#1b48ff',
+    borderWidth: '0 3.5px 3.5px 3.5px',
+    borderColor: '#0f3ffd',
     borderStyle: 'solid',
   },
   faded: {
-    borderColor: 'rgb(122, 147, 223)',
+    borderColor: 'rgb(87, 119, 217)',
   },
   fullscreen: {
     border: 0,
@@ -21,9 +21,10 @@ const styles = stylex.create({
 type ContentProps = {
   focus?: boolean;
   fullscreen: boolean;
+  children: React.ReactNode;
 };
 
-const Content = ({ focus = false, fullscreen }: ContentProps) => {
+const Content = ({ focus = false, fullscreen, children }: ContentProps) => {
   return (
     <div
       {...stylex.props(
@@ -31,7 +32,9 @@ const Content = ({ focus = false, fullscreen }: ContentProps) => {
         !focus && styles.faded,
         fullscreen && styles.fullscreen
       )}
-    ></div>
+    >
+      {children}
+    </div>
   );
 };
 export default Content;

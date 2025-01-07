@@ -14,11 +14,11 @@ const Accessories = () => {
   return (
     <ExpandMenu>
       <ExpandMenuItem
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
         hasExpand
         title="Accessibility"
         icon={logos.menuPrograms}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         selectedItem={selectedItem}
         itemHovered={itemHovered}
       >

@@ -1,74 +1,108 @@
 'use client';
 
 import * as stylex from '@stylexjs/stylex';
-import Bar from './Bar';
-import Content from './Content';
-import { useManageWindow } from '@/app/hooks/useManageWindow';
+import Bar from './components/Bar';
+import Content from './components/Content';
+import { useManageWindow } from './hooks/useManageWindow';
 import { useClickOutside } from '@/app/hooks/useClickOutside';
+import ResizeAnchor from './components/ResizeAnchor';
 
-const styles = stylex.create({
-  container: {
-    position: 'absolute',
-    zIndex: 1,
-    borderRadius: '8px 8px 0 0',
-    borderTopWidth: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    boxShadow: '0 0 2px 0 rgba(0, 0, 255, 0.5)',
-  },
-  fullscreen: {
-    height: '100%',
-    width: '100%',
-    top: 0,
-    left: 0,
-    borderRadius: 0,
-    boxShadow: 'none',
-    border: 'none',
-  },
-});
+const { container, fullscreen, height, left, top, width, zIndex, minimized } =
+  stylex.create({
+    container: {
+      position: 'absolute',
+      zIndex: 1,
+      borderRadius: '8px 8px 0 0',
+      borderTopWidth: 0,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    fullscreen: {
+      height: '100%',
+      width: '100%',
+      top: 0,
+      left: 0,
+      borderRadius: 0,
+      boxShadow: 'none',
+      border: 'none',
+    },
+    height: (height: number) => ({
+      height,
+    }),
+    width: (width: number) => ({
+      width,
+    }),
+    top: (top: number) => ({
+      top,
+    }),
+    left: (left: number) => ({
+      left,
+    }),
+    zIndex: (zIndex: number) => ({
+      zIndex,
+    }),
+    minimized: {
+      display: 'none',
+    },
+  });
 
 type WindowProps = {
   id: string;
+  children: React.ReactNode;
 };
 
-const Window = ({ id }: WindowProps) => {
+const Window = ({ id, children }: WindowProps) => {
   const {
     blur,
     focus,
     window,
     windowPosition,
-    onDrag,
     onDragStart,
+    windowSize,
+    resize,
+    isDragging,
     onDragEnd,
   } = useManageWindow(id);
   const ref = useClickOutside(blur);
   return (
     <div
-      style={{
-        width: !window.fullscreen ? window.width : undefined,
-        height: !window.fullscreen ? window.height : undefined,
-        top: !window.fullscreen ? windowPosition.top : undefined,
-        left: !window.fullscreen ? windowPosition.left : undefined,
-        zIndex: window.zIndex,
-        display: !window.minimized ? undefined : 'none',
-      }}
       onClickCapture={focus}
       onClick={focus}
       ref={ref}
       {...stylex.props(
-        styles.container,
-        window.fullscreen && styles.fullscreen
+        container,
+        height(windowSize.height),
+        width(windowSize.width),
+        top(windowPosition.top || 0),
+        left(windowPosition.left || 0),
+        zIndex(window?.zIndex || 0),
+        window?.fullscreen && fullscreen,
+        window?.minimized && minimized
       )}
     >
       <Bar
         id={id}
-        fullscreen={window.fullscreen}
+        fullscreen={window?.fullscreen || false}
         focus={window?.focus}
-        onDrag={onDrag}
         onDragStart={onDragStart}
+        isDragging={isDragging.current}
         onDragEnd={onDragEnd}
       />
-      <Content fullscreen={window.fullscreen} focus={window?.focus} />
+      <Content fullscreen={window?.fullscreen || false} focus={window?.focus}>
+        {children}
+      </Content>
+      {!window?.fullscreen && (
+        <>
+          <ResizeAnchor onResize={resize} id={id} position="bottomLeft" />
+          <ResizeAnchor onResize={resize} id={id} position="bottomRight" />
+          <ResizeAnchor onResize={resize} id={id} position="topLeft" />
+          <ResizeAnchor onResize={resize} id={id} position="topRight" />
+          <ResizeAnchor onResize={resize} id={id} position="top" />
+          <ResizeAnchor onResize={resize} id={id} position="right" />
+          <ResizeAnchor onResize={resize} id={id} position="bottom" />
+          <ResizeAnchor onResize={resize} id={id} position="left" />
+        </>
+      )}
     </div>
   );
 };

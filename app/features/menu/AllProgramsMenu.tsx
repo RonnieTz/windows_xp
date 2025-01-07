@@ -35,11 +35,11 @@ const AllProgramsMenu = () => {
       />
       <Divider />
       <ExpandMenuItem
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
         hasExpand
         title="Accessories"
         icon={logos.menuPrograms}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         selectedItem={selectedItem}
         itemHovered={itemHovered}
       >

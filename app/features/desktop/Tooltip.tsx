@@ -10,6 +10,7 @@ const styles = stylex.create({
     fontSize: 12,
     padding: 3,
     color: 'black',
+    fontWeight: 500,
   },
 });
 

@@ -20,15 +20,13 @@ export const useTooltip = (hasExpand: boolean | undefined) => {
         setShowTooltip(true);
         setTimeout(() => {
           setShowTooltip(false);
-        }, 8000);
+        }, 4000);
       }
     }, 500);
     timeoutOpen.current = timeout;
   };
   const onMouseLeave = () => {
     setShowTooltip(false);
-    console.log('left');
-
     clearTimeout(timeoutOpen.current);
   };
   const hideTooltip = () => {

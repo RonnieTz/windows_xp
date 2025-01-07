@@ -3,12 +3,12 @@ import Button from './Button';
 
 const styles = stylex.create({
   buttonGroup: {
-    height: 30,
+    height: '70%',
     right: 3,
     bottom: 5,
     position: 'absolute',
     display: 'flex',
-    gap: 2,
+    gap: 3,
   },
 });
 
