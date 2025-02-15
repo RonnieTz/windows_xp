@@ -20,7 +20,7 @@ const styles = stylex.create({
     borderStyle: 'solid',
     borderColor: '#fff #fff #d8d2bd #fff',
     position: 'relative',
-    zIndex: 1,
+    zIndex: 100000,
   },
 });
 
@@ -42,6 +42,10 @@ type Props = {
 };
 
 const Toolbar = ({ props }: Props) => {
+  const closeDropdown = () => {
+    props.setShowDropdown(false);
+    props.setSelected(null);
+  };
   return (
     <div id="toolbar" {...stylex.props(styles.toolbar)}>
       <ToolbarItem props={props} title="File">
@@ -51,7 +55,7 @@ const Toolbar = ({ props }: Props) => {
         <EditMenu />
       </ToolbarItem>
       <ToolbarItem props={props} title="View">
-        <ViewMenu />
+        <ViewMenu closeDropDown={closeDropdown} />
       </ToolbarItem>
       <ToolbarItem props={props} title="Favorites">
         <FavoritesMenu />

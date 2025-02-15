@@ -15,6 +15,7 @@ export type Window = {
   icon: StaticImageData;
   minWidth: number;
   minHeight: number;
+  app: string;
 };
 
 export type Task = {

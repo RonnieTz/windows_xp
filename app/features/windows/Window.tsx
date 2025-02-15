@@ -66,7 +66,6 @@ const Window = ({ id, children }: WindowProps) => {
   const ref = useClickOutside(blur);
   return (
     <div
-      onClickCapture={focus}
       onClick={focus}
       ref={ref}
       {...stylex.props(

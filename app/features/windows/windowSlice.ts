@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import icon from '@/public/start/Control Panel.webp';
 import { Window, Task } from './types';
+import { logos } from '@/public/logos';
 
 const initialState: { windows: Window[]; tasks: Task[] } = {
   windows: [
     {
-      id: '1',
-      title: 'Window 2',
+      id: 'folder1',
+      title: 'Folder1',
       width: 550,
       minWidth: 500,
       height: 550,
@@ -14,20 +14,32 @@ const initialState: { windows: Window[]; tasks: Task[] } = {
       top: 150,
       left: 250,
       focus: true,
-      fullscreen: false,
-      zIndex: 1,
+      fullscreen: true,
+      zIndex: 2,
       minimized: false,
       open: true,
-      icon,
+      icon: logos.folder,
+      app: 'explorer',
     },
   ],
-  tasks: [{ id: '1' }],
+  tasks: [],
 };
 
 const windowSlice = createSlice({
   name: 'window',
   initialState,
   reducers: {
+    openWindow: (state, action: PayloadAction<string>) => {
+      const window = state.windows.find(
+        (window) => window.id === action.payload
+      );
+      if (window) {
+        window.open = true;
+      }
+      if (!state.tasks.find((task) => task.id === action.payload)) {
+        state.tasks.push({ id: action.payload });
+      }
+    },
     setSize: (
       state,
       action: PayloadAction<{ id: string; width: number; height: number }>
@@ -40,6 +52,12 @@ const windowSlice = createSlice({
               height: action.payload.height,
             }
           : window
+      );
+    },
+    setName: (state, action: PayloadAction<{ name: string; id: string }>) => {
+      const { name, id } = action.payload;
+      state.windows = state.windows.map((window) =>
+        window.id === id ? { ...window, title: name } : window
       );
     },
     setFocus: (
@@ -63,9 +81,12 @@ const windowSlice = createSlice({
       );
     },
     closeWindow: (state, action: PayloadAction<string>) => {
-      state.windows = state.windows.filter(
-        (window) => window.id !== action.payload
+      const window = state.windows.find(
+        (window) => window.id === action.payload
       );
+      if (window) {
+        window.open = false;
+      }
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
     setIndex: (
@@ -109,5 +130,7 @@ export const {
   setIndex,
   setMinimized,
   setPosition,
+  setName,
+  openWindow,
 } = windowSlice.actions;
 export default windowSlice.reducer;

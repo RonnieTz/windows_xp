@@ -1,11 +1,13 @@
 import * as stylex from '@stylexjs/stylex';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import shortcutArrow from '@/public/desktop/shortcut-arrow.svg';
+import { Link } from '@/app/redux/slices/linkSlice';
+import { useManageLink } from './hooks/useManageLink';
 
 const styles = stylex.create({
   desktopLink: {
     minHeight: 80,
-    height: 80,
+    height: 83,
     width: 80,
     display: 'flex',
     flexDirection: 'column',
@@ -13,8 +15,15 @@ const styles = stylex.create({
     alignItems: 'center',
     gap: 10,
     textAlign: 'center',
-    position: 'relative',
+    position: 'absolute',
+    zIndex: 2,
   },
+  top: (top: number) => ({
+    top,
+  }),
+  left: (left: number) => ({
+    left,
+  }),
   icon: {
     height: 40,
     width: 40,
@@ -56,27 +65,37 @@ const styles = stylex.create({
 });
 
 type DesktopLinkProps = {
-  title: string;
-  icon: StaticImageData;
-  selected: boolean;
-  isShortcut?: boolean;
+  link: Link;
 };
 
-const DesktopLink = ({
-  title,
-  icon,
-  selected,
-  isShortcut = false,
-}: DesktopLinkProps) => {
+const DesktopLink = ({ link }: DesktopLinkProps) => {
+  const { icon, name, isShortcut, selected } = link;
+  const { onClick, open, ref } = useManageLink(link.id);
   return (
-    <div {...stylex.props(styles.desktopLink)}>
+    <div
+      ref={ref}
+      draggable
+      onDragStart={(e) => {
+        const data = JSON.stringify(link);
+        e.dataTransfer.setData('text/plain', data);
+      }}
+      onClick={onClick}
+      {...stylex.props(
+        styles.desktopLink,
+        styles.top(link.position.top),
+        styles.left(link.position.left)
+      )}
+      onDoubleClick={() => {
+        open();
+      }}
+    >
       <Image
         {...stylex.props(styles.icon, selected && styles.selectedIcon)}
         src={icon}
         alt="Folder icon"
       />
       <span {...stylex.props(styles.title, selected && styles.selectedText)}>
-        {title}
+        {name}
       </span>
       {isShortcut && (
         <span {...stylex.props(styles.arrowContainer)}>

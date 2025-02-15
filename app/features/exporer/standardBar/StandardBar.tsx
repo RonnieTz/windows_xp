@@ -19,6 +19,8 @@ const styles = stylex.create({
     display: 'flex',
     paddingLeft: 5,
     alignItems: 'center',
+    zIndex: 100,
+    position: 'relative',
   },
 });
 

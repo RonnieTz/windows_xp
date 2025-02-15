@@ -3,6 +3,7 @@ import Toolbar from './toolbar/Toolbar';
 import AddressBar from './addressBar/AddressBar';
 import StandardBar from './standardBar/StandardBar';
 import { Dispatch, SetStateAction } from 'react';
+import { useManageViews } from './hooks/useManageViews';
 
 const styles = stylex.create({
   barContainer: {
@@ -23,11 +24,12 @@ type Props = {
 };
 
 const BarContainer = ({ props }: Props) => {
+  const { standartBar, addressBar } = useManageViews();
   return (
     <div {...stylex.props(styles.barContainer)}>
       <Toolbar props={props} />
-      <StandardBar />
-      <AddressBar />
+      {standartBar && <StandardBar />}
+      {addressBar && <AddressBar />}
     </div>
   );
 };

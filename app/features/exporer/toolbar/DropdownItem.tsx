@@ -63,6 +63,7 @@ type Props = {
   onMouseEnter?: (title: string) => void;
   onMouseLeave?: () => void;
   itemHovered?: string;
+  callback?: (str: string) => void;
 };
 const DropdownItem = ({
   title,
@@ -77,12 +78,14 @@ const DropdownItem = ({
   onMouseEnter,
   onMouseLeave,
   itemHovered,
+  callback,
 }: Props) => {
   const { bind, isHovered } = useHover();
 
   return (
     <div
-      onMouseEnter={() => {
+      onMouseEnter={(e) => {
+        e.stopPropagation();
         onMouseEnter?.(title);
         bind.onMouseEnter();
       }}
@@ -96,6 +99,10 @@ const DropdownItem = ({
         hasExpand && styles.arrow,
         selectedItem === title && !itemHovered && styles.selected
       )}
+      onClick={(e) => {
+        e.stopPropagation();
+        callback?.(title);
+      }}
     >
       {selected && (
         <Image

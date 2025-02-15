@@ -5,6 +5,8 @@ import {
   setIndex,
   setMinimized,
   closeWindow,
+  setName,
+  openWindow,
 } from '../windowSlice';
 import { useResize } from './useResize';
 import { useDrag } from './useDrag';
@@ -46,6 +48,8 @@ export const useManageWindow = (id: string) => {
   const minimize = () => dispatch(setMinimized({ id, minimized: true }));
   const restoreMinimized = () =>
     dispatch(setMinimized({ id, minimized: false }));
+  const renameWindow = (name: string) => dispatch(setName({ id, name }));
+  const open = (id: string) => dispatch(openWindow(id));
 
   return {
     window,
@@ -64,5 +68,7 @@ export const useManageWindow = (id: string) => {
     resize,
     isDragging,
     onDragEnd,
+    renameWindow,
+    open,
   };
 };

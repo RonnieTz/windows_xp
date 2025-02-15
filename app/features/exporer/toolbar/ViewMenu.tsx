@@ -6,10 +6,20 @@ import Toolbars from './Toolbars';
 import ExplorerBar from './ExplorerBar';
 import ArrangeIconsBy from './ArrangeIconsBy';
 import GoTo from './GoTo';
+import { useManageViews } from '../hooks/useManageViews';
 
-const ViewMenu = () => {
+type ViewMenuProps = {
+  closeDropDown: () => void;
+};
+
+const ViewMenu = ({ closeDropDown }: ViewMenuProps) => {
   const { itemHovered, onMouseEnter, onMouseLeave, selectedItem } =
     useSelectExpandMenuItem(500);
+  const { setView, view } = useManageViews();
+  const changeView = (view: string) => {
+    setView(view);
+    closeDropDown();
+  };
 
   return (
     <Dropdown>
@@ -48,14 +58,17 @@ const ViewMenu = () => {
         selectedItem={selectedItem}
         itemHovered={itemHovered}
         title="Thumbnails"
+        selected={view === 'Thumbnails'}
+        callback={changeView}
       />
       <DropdownItem
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         selectedItem={selectedItem}
         itemHovered={itemHovered}
-        selected
         title="Tiles"
+        selected={view === 'Tiles'}
+        callback={changeView}
       />
       <DropdownItem
         onMouseEnter={onMouseEnter}
@@ -63,6 +76,8 @@ const ViewMenu = () => {
         selectedItem={selectedItem}
         itemHovered={itemHovered}
         title="Icons"
+        selected={view === 'Icons'}
+        callback={changeView}
       />
       <DropdownItem
         onMouseEnter={onMouseEnter}
@@ -70,6 +85,8 @@ const ViewMenu = () => {
         selectedItem={selectedItem}
         itemHovered={itemHovered}
         title="List"
+        selected={view === 'List'}
+        callback={changeView}
       />
       <DropdownItem
         onMouseEnter={onMouseEnter}
@@ -77,6 +94,8 @@ const ViewMenu = () => {
         selectedItem={selectedItem}
         itemHovered={itemHovered}
         title="Details"
+        selected={view === 'Details'}
+        callback={changeView}
       />
       <Divider />
       <DropdownItem

@@ -10,11 +10,19 @@ const styles = stylex.create({
   },
 });
 
-const Main = () => {
+type Props = {
+  manageLocation: {
+    changeFolderLocation: (newLocation: string) => void;
+    folderLocation: string;
+    windowID: string;
+  };
+};
+
+const Main = ({ manageLocation }: Props) => {
   return (
     <div {...stylex.props(styles.main)}>
       <Sidebar />
-      <Content />
+      <Content manageLocation={manageLocation} />
     </div>
   );
 };
